@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml.Linq;
 using EsigGestãoDeTarefasApp.Data;
 using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Models;
@@ -21,6 +22,8 @@ namespace EsigGestãoDeTarefasApp.Repository
             return Save();
 
         }
+
+       
 
         public bool DeleteEmployee(Employee employee)
         {
@@ -66,6 +69,12 @@ namespace EsigGestãoDeTarefasApp.Repository
         {
             _context.Employees.Update(employee);
             return Save();
+        }
+
+        public Employee? GetEmployeeByEmail(string email)
+        {
+            return _context.Employees
+        .FirstOrDefault(e => e.Email  == email);
         }
     }
 }

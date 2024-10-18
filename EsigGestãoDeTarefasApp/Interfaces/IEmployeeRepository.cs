@@ -6,6 +6,7 @@ namespace EsigGestãoDeTarefasApp.Interfaces
 	public interface IEmployeeRepository
 	{
 		ICollection<Employee> GetEmployees();
+		Employee? GetEmployeeByEmail(string email);
 		Employee? GetEmployeeById(int id);
 		Employee? GetEmployeeByName(string fname);
 		bool CreateEmployee(Employee employee);
