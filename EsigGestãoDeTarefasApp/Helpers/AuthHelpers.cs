@@ -9,7 +9,14 @@ using EsigGestãoDeTarefasApp.Dtos;
 namespace EsigGestãoDeTarefasApp.Helpers
 {
 	public class AuthHelpers
+
+
 	{
+
+        public AuthHelpers()
+        {
+            // Parameterless constructor
+        }
 
         private readonly IConfiguration _configuration; 
 

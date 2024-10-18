@@ -5,6 +5,8 @@ VisualStudioVersion = 25.0.1706.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EsigGestãoDeTarefasApp", "EsigGestãoDeTarefasApp\EsigGestãoDeTarefasApp.csproj", "{ABB04469-B537-40B0-BA84-C7BCC2AE7D4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTasksTest", "ApiTasksTest\ApiTasksTest.csproj", "{034FA157-FAB5-49B0-AFA6-5E11FC53FA60}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ABB04469-B537-40B0-BA84-C7BCC2AE7D4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABB04469-B537-40B0-BA84-C7BCC2AE7D4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABB04469-B537-40B0-BA84-C7BCC2AE7D4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{034FA157-FAB5-49B0-AFA6-5E11FC53FA60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{034FA157-FAB5-49B0-AFA6-5E11FC53FA60}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{034FA157-FAB5-49B0-AFA6-5E11FC53FA60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{034FA157-FAB5-49B0-AFA6-5E11FC53FA60}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

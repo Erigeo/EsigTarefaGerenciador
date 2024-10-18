@@ -34,6 +34,33 @@ namespace EsigGestãoDeTarefasApp.Services
 
             return user;
         }
+
+        public bool Register(RegisterDto registerDto)
+        {
+            
+
+            var existingUser = _employeeRepository.GetEmployeeByEmail(registerDto.Email);
+            if (existingUser != null)
+                return false;
+
+
+            var hashedPassword = _authHelpers.HashPassword(registerDto.Password);
+
+
+            var newUser = new Employee
+            {
+                Email = registerDto.Email,
+                Password = hashedPassword,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                Role = registerDto.Role
+
+            };
+
+            _employeeRepository.CreateEmployee(newUser);
+            return true;
+                
+        }
     }
 }
 

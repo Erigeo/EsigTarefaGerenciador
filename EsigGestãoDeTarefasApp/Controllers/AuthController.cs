@@ -18,6 +18,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
         private readonly IEmployeeRepository _employeeRepository;
         private readonly AuthService _authService;
         private readonly AuthHelpers _authHelpers;
+        
         public AuthController(IEmployeeRepository employeeRepository, AuthService auth, AuthHelpers authHelpers
             )
         {
@@ -26,9 +27,20 @@ namespace EsigGestãoDeTarefasApp.Controllers
             _authHelpers = authHelpers;
         }
 
+
+        
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
+            /// <summary>
+            /// Realiza o Login, retornando um JWT token.
+            /// </summary>
+            /// <param name="loginDto"></param>
+            /// <returns></returns>
+            if (loginDto == null)
+            {
+                return BadRequest("Login information cannot be null.");
+            }
 
             var user = _authService.AuthenticateUser(loginDto);
 
@@ -42,32 +54,23 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         [HttpPost("register")]
         public IActionResult Register([FromBody] RegisterDto registerDto)
+
+
         {
-            if (registerDto == null)
-                return BadRequest("Register object is null");
 
-            var existingUser = _employeeRepository.GetEmployeeByEmail(registerDto.Email);
-            if (existingUser != null)
-                return Conflict("Email already in use");
-
-
-            var hashedPassword = _authHelpers.HashPassword(registerDto.Password);
-
-
-            var newUser = new Employee
+            if(registerDto == null)
             {
-                Email = registerDto.Email,
-                Password = hashedPassword,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                Role = registerDto.Role
+                return BadRequest("Register information cannot be null.");
+            }
 
-            };
+            var isRegistered = _authService.Register(registerDto);
 
-            if (!_employeeRepository.CreateEmployee(newUser))
-                return StatusCode(500, "An error occurred while creating the user");
-
-            return StatusCode(201, "Employee created successfully.");
+            if (!isRegistered)
+            {
+                return StatusCode(409, "Email already in use.");
+            }
+            //change this return
+            return StatusCode(201, "User created successfully.");
         }
     }
 }

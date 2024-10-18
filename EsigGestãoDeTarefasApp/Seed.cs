@@ -4,6 +4,7 @@ using System.Linq;
 using EsigGestãoDeTarefasApp.Enums;
 using EsigGestãoDeTarefasApp.Helpers;
 using EsigGestãoDeTarefasApp.Models;
+using Task = EsigGestãoDeTarefasApp.Models.Task;
 
 namespace EsigGestãoDeTarefasApp.Data
 {
@@ -27,36 +28,33 @@ namespace EsigGestãoDeTarefasApp.Data
                 return; 
             }
 
-            
+
             var tasks = new List<Models.Task>
-            {
-                new Models.Task
                 {
+                new Task{
                     Title = "Develop login system",
                     Description = "Implement authentication and authorization logic",
-                    Status = StatusEnum.Pending, 
-                    Deadline = new DateTime(2024, 12, 31),
-                    Priority = "High"
-                },
-                new Models.Task
-                {
+                    Priority = "High",
+                    Status = StatusEnum.Pending,
+                    Deadline = new DateTime(2024, 12, 31) },
+                new Task{
                     Title = "Create database schema",
                     Description = "Design the database schema for the application",
-                    Status = StatusEnum.Completed, 
-                    Deadline = new DateTime(2024, 11, 15),
-                    Priority = "Medium"
-                },
-                new Models.Task
-                {
+                    Priority = "Medium",
+                    Status = StatusEnum.Completed,
+                    Deadline = new DateTime(2024, 11, 15) },
+                new Task{
                     Title = "Test API endpoints",
                     Description = "Write unit tests for all API endpoints",
-                    Status = StatusEnum.InProgress, 
-                    Deadline = new DateTime(2024, 12, 1),
-                    Priority = "Low"
-                }
-            };
+                    Priority = "Low",
+                    Status = StatusEnum.InProgress,
+                    Deadline = new DateTime(2024, 12, 1) },
 
-           
+                
+                
+                };
+
+
             var employees = new List<Employee>
             {
                 new Employee
