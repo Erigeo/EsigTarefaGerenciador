@@ -5,14 +5,15 @@ using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using EsigGestãoDeTarefasApp.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EsigGestãoDeTarefasApp.Controllers
 {
 
 
 
-
-	[Route("api/[controller]")]
+    [Authorize]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class EmployeeController : Controller
 
@@ -29,48 +30,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 		}
 
 
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto loginDto)
-        {
-            
-            var user = _authService.AuthenticateUser(loginDto);
-
-            if (user == null)
-                return Unauthorized();
-
-            var token = _authHelpers.GenerateJwtToken(user);
-            return Ok(new { Token = token });
-        }
-
-
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] RegisterDto registerDto)
-        {
-            if (registerDto == null)
-                return BadRequest("Register object is null");
-
-            var existingUser = _employeeRepository.GetEmployeeByEmail(registerDto.Email);
-            if (existingUser != null)
-                return Conflict("Email already in use");
-
-           
-            var hashedPassword = _authHelpers.HashPassword(registerDto.Password);
-
-
-            var newUser = new Employee
-            {
-                Email = registerDto.Email,
-                Password = hashedPassword,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName
-                                           
-            };
-
-            if (!_employeeRepository.CreateEmployee(newUser))
-                return StatusCode(500, "An error occurred while creating the user");
-
-            return CreatedAtAction(nameof(GetEmployeeById), new { id = newUser.Id }, newUser);
-        }
+        
 
 
         // GET: api/employees

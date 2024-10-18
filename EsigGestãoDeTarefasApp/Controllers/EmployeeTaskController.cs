@@ -3,10 +3,12 @@ using EsigGestãoDeTarefasApp.Dtos;
 using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Models;
 using EsigGestãoDeTarefasApp.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EsigGestãoDeTarefasApp.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EmployeeTaskController : Controller

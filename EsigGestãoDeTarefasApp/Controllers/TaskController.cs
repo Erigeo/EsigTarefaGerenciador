@@ -1,10 +1,12 @@
 ﻿using System;
 using EsigGestãoDeTarefasApp.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = EsigGestãoDeTarefasApp.Models.Task;
 
 namespace EsigGestãoDeTarefasApp.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TaskController : Controller

@@ -1,4 +1,6 @@
 ﻿using System;
+using EsigGestãoDeTarefasApp.Enums;
+
 namespace EsigGestãoDeTarefasApp.Models
 {
 	public class Employee
@@ -8,6 +10,7 @@ namespace EsigGestãoDeTarefasApp.Models
         public string LastName { get; set; }
         public  string Email { get; set; }
         public  string Password { get; set; }
+        public  RoleEnum Role { get; set; }
         public Employee()
 		{
 				

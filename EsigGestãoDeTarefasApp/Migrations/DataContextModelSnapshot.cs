@@ -46,6 +46,9 @@ namespace EsigGestãoDeTarefasApp.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("NUMBER(10)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
@@ -61,6 +64,9 @@ namespace EsigGestãoDeTarefasApp.Migrations
 
                     b.Property<DateTime>("AssignedDate")
                         .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("EmployeeId", "TaskId");
 

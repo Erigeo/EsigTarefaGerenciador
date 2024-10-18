@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq; // Certifique-se de incluir esta diretiva
+using System.Linq; 
 using EsigGestãoDeTarefasApp.Enums;
+using EsigGestãoDeTarefasApp.Helpers;
 using EsigGestãoDeTarefasApp.Models;
 
 namespace EsigGestãoDeTarefasApp.Data
@@ -9,29 +10,31 @@ namespace EsigGestãoDeTarefasApp.Data
     public class Seed
     {
         private readonly DataContext _dataContext;
+        private readonly AuthHelpers _authHelpers;
 
-        // Construtor que recebe o DataContext
-        public Seed(DataContext context)
+        
+        public Seed(DataContext context, AuthHelpers authHelpers)
         {
             _dataContext = context;
+            _authHelpers = authHelpers;
         }
 
         public void SeedDataContext()
         {
-            // Verifica se já existem Employees ou Tasks no banco de dados
+            
             if (_dataContext.Employees.Any() || _dataContext.Tasks.Any())
             {
-                return; // O banco de dados já foi populado
+                return; 
             }
 
-            // Cria uma lista de Tasks de exemplo
+            
             var tasks = new List<Models.Task>
             {
                 new Models.Task
                 {
                     Title = "Develop login system",
                     Description = "Implement authentication and authorization logic",
-                    Status = StatusEnum.Pending, // Usando enum
+                    Status = StatusEnum.Pending, 
                     Deadline = new DateTime(2024, 12, 31),
                     Priority = "High"
                 },
@@ -39,7 +42,7 @@ namespace EsigGestãoDeTarefasApp.Data
                 {
                     Title = "Create database schema",
                     Description = "Design the database schema for the application",
-                    Status = StatusEnum.Completed, // Usando enum
+                    Status = StatusEnum.Completed, 
                     Deadline = new DateTime(2024, 11, 15),
                     Priority = "Medium"
                 },
@@ -47,13 +50,13 @@ namespace EsigGestãoDeTarefasApp.Data
                 {
                     Title = "Test API endpoints",
                     Description = "Write unit tests for all API endpoints",
-                    Status = StatusEnum.InProgress, // Usando enum
+                    Status = StatusEnum.InProgress, 
                     Deadline = new DateTime(2024, 12, 1),
                     Priority = "Low"
                 }
             };
 
-            // Cria uma lista de Employees de exemplo
+           
             var employees = new List<Employee>
             {
                 new Employee
@@ -61,36 +64,36 @@ namespace EsigGestãoDeTarefasApp.Data
                     FirstName = "John",
                     LastName = "Doe",
                     Email = "john.doe@example.com",
-                    Password = "password123" // Considere usar hash para senhas
+                    Password = _authHelpers.HashPassword("password123") 
                 },
                 new Employee
                 {
                     FirstName = "Jane",
                     LastName = "Smith",
                     Email = "jane.smith@example.com",
-                    Password = "password456"
+                    Password = _authHelpers.HashPassword("password456")
                 },
                 new Employee
                 {
                     FirstName = "Alice",
                     LastName = "Johnson",
                     Email = "alice.johnson@example.com",
-                    Password = "password789"
+                    Password = _authHelpers.HashPassword("password789")
                 }
             };
 
-            // Adiciona os employees e tasks ao DataContext
+           
             _dataContext.Employees.AddRange(employees);
             _dataContext.Tasks.AddRange(tasks);
-            _dataContext.SaveChanges(); // Salva primeiro para garantir que os IDs sejam gerados
+            _dataContext.SaveChanges(); 
 
-            // Atualiza os relacionamentos EmployeeTask com os IDs gerados
+            
             var employeeTasks = new List<EmployeeTask>
             {
                 new EmployeeTask
                 {
-                    EmployeeId = employees[0].Id, // ID agora está disponível
-                    TaskId = tasks[0].Id,         // ID agora está disponível
+                    EmployeeId = employees[0].Id, 
+                    TaskId = tasks[0].Id,         
                     AssignedDate = DateTime.Now
                 },
                 new EmployeeTask
@@ -107,7 +110,7 @@ namespace EsigGestãoDeTarefasApp.Data
                 }
             };
 
-            // Adiciona os relacionamentos EmployeeTask ao DataContext
+            
             _dataContext.EmployeeTasks.AddRange(employeeTasks);
             _dataContext.SaveChanges();
         }

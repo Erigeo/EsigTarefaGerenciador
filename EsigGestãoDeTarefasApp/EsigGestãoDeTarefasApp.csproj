@@ -43,4 +43,10 @@
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Migrations\20241017171133_InitialCreate.cs" />
+    <Compile Remove="Migrations\20241017171133_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20241018150251_secondState.cs" />
+    <Compile Remove="Migrations\20241018150251_secondState.Designer.cs" />
+  </ItemGroup>
 </Project>

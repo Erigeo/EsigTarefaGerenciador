@@ -12,7 +12,7 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace EsigGestãoDeTarefasApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241017171133_InitialCreate")]
+    [Migration("20241018151936_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,6 +49,9 @@ namespace EsigGestãoDeTarefasApp.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("NUMBER(10)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
@@ -64,6 +67,9 @@ namespace EsigGestãoDeTarefasApp.Migrations
 
                     b.Property<DateTime>("AssignedDate")
                         .HasColumnType("TIMESTAMP(7)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("EmployeeId", "TaskId");
 

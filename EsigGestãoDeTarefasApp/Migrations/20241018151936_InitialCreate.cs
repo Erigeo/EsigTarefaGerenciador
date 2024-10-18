@@ -20,7 +20,8 @@ namespace EsigGestãoDeTarefasApp.Migrations
                     FirstName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     LastName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Password = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    Password = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    Role = table.Column<int>(type: "NUMBER(10)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,6 +51,7 @@ namespace EsigGestãoDeTarefasApp.Migrations
                 {
                     EmployeeId = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     TaskId = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Status = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     AssignedDate = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false)
                 },
                 constraints: table =>

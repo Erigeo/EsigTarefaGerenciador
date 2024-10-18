@@ -65,6 +65,10 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<Seed>();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Manager", policy => policy.RequireRole("Manager"));
+});
 
 
 
