@@ -7,7 +7,7 @@ using Task = EsigGestãoDeTarefasApp.Models.Task;
 namespace EsigGestãoDeTarefasApp.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/task/")]
     [ApiController]
     public class TaskController : Controller
 	{

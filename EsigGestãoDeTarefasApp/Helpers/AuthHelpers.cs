@@ -28,38 +28,45 @@ namespace EsigGestãoDeTarefasApp.Helpers
 
         public string GenerateJwtToken(Employee user)
         {
-            
+
             var jwtKey = _configuration["Jwt:JWT_Secret"];
 
-            
+
             if (string.IsNullOrEmpty(jwtKey))
             {
                 throw new ArgumentNullException(nameof(jwtKey), "A chave JWT não pode ser nula ou vazia.");
             }
 
-           
+
             var claims = new[]
             {
         new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-        new Claim("id", user.Id.ToString())
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+
+        new Claim("id", user.Id.ToString()),
+        new Claim("role", user.Role.ToString()),
+
 
     };
 
-            
+
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            
-            var token = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds);
 
-            
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            var tokenDescriptor = new SecurityTokenDescriptor {
+                Issuer = _configuration["Jwt:Issuer"],
+                Audience =_configuration["Jwt:Audience"],
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddMinutes(30),
+                SigningCredentials = creds
+                };
+
+            var tokenObject = new JwtSecurityTokenHandler().CreateToken(tokenDescriptor);
+            string token = new JwtSecurityTokenHandler().WriteToken(tokenObject);
+            return token;
         }
 
 

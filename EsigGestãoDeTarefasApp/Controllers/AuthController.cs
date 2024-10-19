@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace EsigGestãoDeTarefasApp.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class AuthController : Controller
     {

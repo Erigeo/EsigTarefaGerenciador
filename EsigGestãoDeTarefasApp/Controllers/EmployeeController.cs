@@ -6,6 +6,7 @@ using EsigGestãoDeTarefasApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using EsigGestãoDeTarefasApp.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace EsigGestãoDeTarefasApp.Controllers
 {
@@ -13,7 +14,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
 
     [Authorize]
-    [Route("api/[controller]")]
+    [Route("api/employees/")]
 	[ApiController]
 	public class EmployeeController : Controller
 
@@ -37,6 +38,8 @@ namespace EsigGestãoDeTarefasApp.Controllers
         [HttpGet]
         public IActionResult GetEmployees()
         {
+           
+
             var employees = _employeeRepository.GetEmployees();
             if (employees == null || !employees.Any())
                 return NotFound("No employees found");

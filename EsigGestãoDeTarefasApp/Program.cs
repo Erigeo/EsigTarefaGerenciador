@@ -8,6 +8,7 @@ using EsigGestãoDeTarefasApp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +31,7 @@ builder.Services.AddAuthentication(options =>
 })
 .AddJwtBearer(options =>
 {
-    var key = builder.Configuration["Jwt:Key"];
+    var key = builder.Configuration["Jwt:JWT_Secret"];
     var issuer = builder.Configuration["Jwt:Issuer"];
     var audience = builder.Configuration["Jwt:Audience"];
 
@@ -40,6 +41,8 @@ builder.Services.AddAuthentication(options =>
         // Apenas retorna, não configura a autenticação JWT
         return;
     }
+
+    Console.WriteLine($"JWT Key: {key}");
 
     options.TokenValidationParameters = new TokenValidationParameters
     {
@@ -69,8 +72,43 @@ builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Manager", policy => policy.RequireRole("Manager"));
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins("http://localhost:8080") // O URL do seu frontend
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+});
 
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+
+    // Adiciona a configuração do token JWT
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        In = ParameterLocation.Header,
+        Description = "Por favor, insira o token JWT como: Bearer {seu_token}",
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 
 var app = builder.Build();
@@ -99,6 +137,8 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowSpecificOrigin");
 
 
 app.UseAuthentication();
