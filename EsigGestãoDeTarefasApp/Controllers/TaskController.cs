@@ -76,15 +76,16 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // PUT: api/tasks/{id}
         [HttpPut("{id}")]
-        public ActionResult UpdateTask(int id, [FromBody] Task task)
+        public ActionResult UpdateTask(int id, [FromBody] TaskDto taskDto)
         {
-            if (task == null || task.Id != id)
+            Console.WriteLine("nosso task dto:" + taskDto.ToString());
+            if (taskDto == null)
                 return BadRequest("Task object is null or ID mismatch");
 
             if (!_taskRepository.TaskExist(id))
                 return NotFound($"Task with ID abacaxi {id} not found");
 
-            if (!_taskRepository.UpdateTask(task))
+            if (!_taskService.UpdateTask(id, taskDto))
                 return StatusCode(500, "An error occurred while updating the task");
 
             return NoContent();

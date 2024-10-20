@@ -18,7 +18,7 @@ namespace EsigGestãoDeTarefasApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Models.Task>()
-        .HasOne(t => t.Employee)            
+        .HasOne(t => t.Employee)            // Configura a relação um-para-muitos
         .WithMany(e => e.Tasks)             
         .HasForeignKey(t => t.EmployeeId);
         }

@@ -55,6 +55,7 @@ namespace EsigGestãoDeTarefasApp.Repository
 
         public bool UpdateTask(Models.Task task)
         {
+
             _context.Tasks.Update(task);
             return Save();
         }

@@ -3,6 +3,7 @@ using EsigGestãoDeTarefasApp.Dtos;
 using EsigGestãoDeTarefasApp.Enums;
 using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace EsigGestãoDeTarefasApp.Services
 {
@@ -49,6 +50,22 @@ namespace EsigGestãoDeTarefasApp.Services
 
             _taskRepository.CreateTask(task);
             return task;
+        }
+
+        public bool UpdateTask(int id, TaskDto taskDto) {
+            var existingTask = _taskRepository.GetTasksById(id);
+            if (existingTask == null) return false;
+
+            existingTask.Title = taskDto.Title;
+            existingTask.Description = taskDto.Description;
+            existingTask.Priority = taskDto.Priority;
+            existingTask.Status = taskDto.Status;
+            existingTask.Deadline = taskDto.Deadline;
+            existingTask.EmployeeId = taskDto.EmployeeId;
+
+            return _taskRepository.UpdateTask(existingTask);
+
+
         }
 
 
