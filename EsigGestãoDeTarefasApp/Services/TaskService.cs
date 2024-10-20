@@ -87,7 +87,7 @@ namespace EsigGestãoDeTarefasApp.Services
                 Priority = t.Priority,
                 Status = t.Status,
                 Deadline = t.Deadline,
-               
+                EmployeeId = t.EmployeeId,
                 Employee = employees
              .Where(e => e.Id == t.EmployeeId)
              .Select(e => new EmployeeDto

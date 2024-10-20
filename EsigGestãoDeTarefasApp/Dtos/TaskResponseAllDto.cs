@@ -12,6 +12,7 @@ namespace EsigGestãoDeTarefasApp.Dtos
         public string? Priority { get; set; }
         public StatusEnum? Status { get; set; }
         public DateTime? Deadline { get; set; }
+        public int EmployeeId { get; set; }
         public EmployeeDto? Employee { get; set; }
         
 
