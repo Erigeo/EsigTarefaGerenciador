@@ -1,5 +1,6 @@
 ﻿using System;
 using EsigGestãoDeTarefasApp.Dtos;
+using EsigGestãoDeTarefasApp.Enums;
 using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Repository;
 
@@ -50,7 +51,42 @@ namespace EsigGestãoDeTarefasApp.Services
             return task;
         }
 
+
+
+        public IEnumerable<TaskResponseAllDto> GetAllTasks()
+        {
+            // Recupera todas as tasks
+            var tasks = _taskRepository.GetAllTasks();
+
+            // Recupera todos os employees
+            var employees = _employeeRepository.GetEmployees();
+
+            // Mapeia cada task, associando o objeto Employee ao invés do nome
+            return tasks.Select(t => new TaskResponseAllDto
+            {
+                Id = t.Id,
+                Title = t.Title,
+                Description = t.Description,
+                Priority = t.Priority,
+                Status = t.Status,
+                Deadline = t.Deadline,
+               
+                Employee = employees
+             .Where(e => e.Id == t.EmployeeId)
+             .Select(e => new EmployeeDto
+             {
+                 Id = e.Id,
+                 FirstName = e.FirstName,
+                 LastName = e.LastName,
+                 Email = e.Email,
+                 Role = (RoleEnum)e.Role 
+             }).FirstOrDefault() 
+            }).ToList();
+        }
+
     }
+
+
 
 
 

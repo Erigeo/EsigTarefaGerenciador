@@ -27,7 +27,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
         [HttpGet]
         public ActionResult<ICollection<Task>> GetAllTasks()
         {
-            var tasks = _taskRepository.GetAllTasks();
+            var tasks = _taskService.GetAllTasks();
             if (tasks == null || !tasks.Any())
                 return NotFound("No tasks found");
 
