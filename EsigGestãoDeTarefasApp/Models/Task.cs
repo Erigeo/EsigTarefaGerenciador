@@ -1,5 +1,6 @@
 ﻿using System;
 using EsigGestãoDeTarefasApp.Enums;
+using Newtonsoft.Json;
 
 namespace EsigGestãoDeTarefasApp.Models
 {
@@ -11,7 +12,10 @@ namespace EsigGestãoDeTarefasApp.Models
         public  string? Priority { get; set; }
         public StatusEnum? Status { get; set; }
         public DateTime? Deadline { get; set; }
-       
+        public Employee Employee { get; set; }
+        public int EmployeeId { get; set; }
+
+
         public Task()
         {
         }

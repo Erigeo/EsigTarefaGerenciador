@@ -1,5 +1,7 @@
 ﻿using System;
+using EsigGestãoDeTarefasApp.Dtos;
 using EsigGestãoDeTarefasApp.Interfaces;
+using EsigGestãoDeTarefasApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Task = EsigGestãoDeTarefasApp.Models.Task;
@@ -12,10 +14,13 @@ namespace EsigGestãoDeTarefasApp.Controllers
     public class TaskController : Controller
 	{
         private readonly ITaskRepository _taskRepository;
+        private readonly TaskService _taskService;
 
-        public TaskController(ITaskRepository taskRepository)
+
+        public TaskController(ITaskRepository taskRepository, TaskService taskService)
         {
             _taskRepository = taskRepository;
+            _taskService = taskService;
         }
 
         // GET: api/tasks
@@ -53,15 +58,20 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // POST: api/tasks
         [HttpPost]
-        public ActionResult CreateTask([FromBody] Task task)
+        public ActionResult CreateTask([FromBody] TaskDto task)
         {
             if (task == null)
                 return BadRequest("Task object is null");
 
-            if (!_taskRepository.CreateTask(task))
+            var taskCreated = _taskService.CreateTask(task);
+
+            if ( taskCreated == null)
                 return StatusCode(500, "An error occurred while creating the task");
 
-            return CreatedAtAction(nameof(GetTaskById), new { id = task.Id }, task);
+
+
+
+            return CreatedAtAction(nameof(GetTaskById), new { id = taskCreated.Id }, taskCreated);
         }
 
         // PUT: api/tasks/{id}

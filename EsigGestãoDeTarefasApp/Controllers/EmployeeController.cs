@@ -22,12 +22,14 @@ namespace EsigGestãoDeTarefasApp.Controllers
         private readonly IEmployeeRepository _employeeRepository;
         private readonly AuthService _authService;
         private readonly AuthHelpers _authHelpers;
-        public EmployeeController(IEmployeeRepository employeeRepository, AuthService auth, AuthHelpers authHelpers
+        private readonly EmployeeService _employeeService;
+        public EmployeeController(IEmployeeRepository employeeRepository, EmployeeService employeeService  , AuthService auth, AuthHelpers authHelpers
             )
 		{
             _employeeRepository = employeeRepository;
             _authService = auth;
             _authHelpers = authHelpers;
+            _employeeService = employeeService;
 		}
 
 
@@ -38,9 +40,10 @@ namespace EsigGestãoDeTarefasApp.Controllers
         [HttpGet]
         public IActionResult GetEmployees()
         {
-           
 
-            var employees = _employeeRepository.GetEmployees();
+
+            var employees = _employeeService.GetAllEmployees();
+            
             if (employees == null || !employees.Any())
                 return NotFound("No employees found");
 

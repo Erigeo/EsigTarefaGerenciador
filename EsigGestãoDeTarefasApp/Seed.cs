@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq; 
+using System.Linq;
 using EsigGestãoDeTarefasApp.Enums;
 using EsigGestãoDeTarefasApp.Helpers;
 using EsigGestãoDeTarefasApp.Models;
@@ -13,7 +13,6 @@ namespace EsigGestãoDeTarefasApp.Data
         private readonly DataContext _dataContext;
         private readonly AuthHelpers _authHelpers;
 
-        
         public Seed(DataContext context, AuthHelpers authHelpers)
         {
             _dataContext = context;
@@ -22,39 +21,12 @@ namespace EsigGestãoDeTarefasApp.Data
 
         public void SeedDataContext()
         {
-            
             if (_dataContext.Employees.Any() || _dataContext.Tasks.Any())
             {
-                return; 
+                return;
             }
 
-
-            var tasks = new List<Models.Task>
-                {
-                new Task{
-                    Title = "Develop login system",
-                    Description = "Implement authentication and authorization logic",
-                    Priority = "High",
-                    Status = StatusEnum.Pending,
-                    Deadline = new DateTime(2024, 12, 31) },
-                new Task{
-                    Title = "Create database schema",
-                    Description = "Design the database schema for the application",
-                    Priority = "Medium",
-                    Status = StatusEnum.Completed,
-                    Deadline = new DateTime(2024, 11, 15) },
-                new Task{
-                    Title = "Test API endpoints",
-                    Description = "Write unit tests for all API endpoints",
-                    Priority = "Low",
-                    Status = StatusEnum.InProgress,
-                    Deadline = new DateTime(2024, 12, 1) },
-
-                
-                
-                };
-
-
+            // Criação dos funcionários
             var employees = new List<Employee>
             {
                 new Employee
@@ -62,7 +34,7 @@ namespace EsigGestãoDeTarefasApp.Data
                     FirstName = "John",
                     LastName = "Doe",
                     Email = "john.doe@example.com",
-                    Password = _authHelpers.HashPassword("password123") 
+                    Password = _authHelpers.HashPassword("password123")
                 },
                 new Employee
                 {
@@ -80,36 +52,44 @@ namespace EsigGestãoDeTarefasApp.Data
                 }
             };
 
-           
+            // Adicionando os funcionários ao contexto
             _dataContext.Employees.AddRange(employees);
-            _dataContext.Tasks.AddRange(tasks);
-            _dataContext.SaveChanges(); 
+            _dataContext.SaveChanges(); // Salvar os funcionários para obter os IDs
 
-            
-            var employeeTasks = new List<EmployeeTask>
+            // Criação das tarefas
+            var tasks = new List<Task>
             {
-                new EmployeeTask
+                new Task
                 {
-                    EmployeeId = employees[0].Id, 
-                    TaskId = tasks[0].Id,         
-                    AssignedDate = DateTime.Now
+                    Title = "Develop login system",
+                    Description = "Implement authentication and authorization logic",
+                    Priority = "High",
+                    Status = StatusEnum.Pending,
+                    Deadline = new DateTime(2024, 12, 31),
+                    EmployeeId = employees[0].Id // Atribuindo a tarefa ao funcionário John
                 },
-                new EmployeeTask
+                new Task
                 {
-                    EmployeeId = employees[1].Id,
-                    TaskId = tasks[1].Id,
-                    AssignedDate = DateTime.Now
+                    Title = "Create database schema",
+                    Description = "Design the database schema for the application",
+                    Priority = "Medium",
+                    Status = StatusEnum.Completed,
+                    Deadline = new DateTime(2024, 11, 15),
+                    EmployeeId = employees[1].Id // Atribuindo a tarefa à funcionária Jane
                 },
-                new EmployeeTask
+                new Task
                 {
-                    EmployeeId = employees[2].Id,
-                    TaskId = tasks[2].Id,
-                    AssignedDate = DateTime.Now
+                    Title = "Test API endpoints",
+                    Description = "Write unit tests for all API endpoints",
+                    Priority = "Low",
+                    Status = StatusEnum.InProgress,
+                    Deadline = new DateTime(2024, 12, 1),
+                    EmployeeId = employees[2].Id // Atribuindo a tarefa à funcionária Alice
                 }
             };
 
-            
-            _dataContext.EmployeeTasks.AddRange(employeeTasks);
+            // Adicionando as tarefas ao contexto
+            _dataContext.Tasks.AddRange(tasks);
             _dataContext.SaveChanges();
         }
     }

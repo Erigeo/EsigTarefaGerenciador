@@ -11,6 +11,9 @@ namespace EsigGestãoDeTarefasApp.Models
         public   string? Email { get; set; }
         public  string? Password { get; set; }
         public  RoleEnum? Role { get; set; }
+        public ICollection<Task> Tasks { get; set; } = new List<Task>();
+
+
         public Employee()
 		{
 				

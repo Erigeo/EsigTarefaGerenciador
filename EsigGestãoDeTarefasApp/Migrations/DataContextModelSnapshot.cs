@@ -31,48 +31,23 @@ namespace EsigGestãoDeTarefasApp.Migrations
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int>("Role")
+                    b.Property<int?>("Role")
                         .HasColumnType("NUMBER(10)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("EsigGestãoDeTarefasApp.Models.EmployeeTask", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .HasColumnType("NUMBER(10)");
-
-                    b.Property<int>("TaskId")
-                        .HasColumnType("NUMBER(10)");
-
-                    b.Property<DateTime>("AssignedDate")
-                        .HasColumnType("TIMESTAMP(7)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("NUMBER(10)");
-
-                    b.HasKey("EmployeeId", "TaskId");
-
-                    b.HasIndex("TaskId");
-
-                    b.ToTable("EmployeeTasks");
                 });
 
             modelBuilder.Entity("EsigGestãoDeTarefasApp.Models.Task", b =>
@@ -83,46 +58,45 @@ namespace EsigGestãoDeTarefasApp.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Deadline")
+                    b.Property<DateTime?>("Deadline")
                         .HasColumnType("TIMESTAMP(7)");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Priority")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("EsigGestãoDeTarefasApp.Models.EmployeeTask", b =>
+            modelBuilder.Entity("EsigGestãoDeTarefasApp.Models.Task", b =>
                 {
                     b.HasOne("EsigGestãoDeTarefasApp.Models.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Tasks")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EsigGestãoDeTarefasApp.Models.Task", "Task")
-                        .WithMany()
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Employee");
+                });
 
-                    b.Navigation("Task");
+            modelBuilder.Entity("EsigGestãoDeTarefasApp.Models.Employee", b =>
+                {
+                    b.Navigation("Tasks");
                 });
 #pragma warning restore 612, 618
         }

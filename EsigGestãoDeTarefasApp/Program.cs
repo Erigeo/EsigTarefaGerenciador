@@ -60,9 +60,10 @@ builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-builder.Services.AddScoped<AuthService>(); // Registra AuthService
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddScoped<TaskService>();
+builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddSingleton<AuthHelpers>();
-builder.Services.AddScoped<IEmployeeTaskRepository, EmployeeTaskRepository>();
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
