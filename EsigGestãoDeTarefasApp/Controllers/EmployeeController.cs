@@ -14,7 +14,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
 
     [Authorize]
-    [Route("api/employees/")]
+    [Route("api/employees")]
 	[ApiController]
 	public class EmployeeController : Controller
 

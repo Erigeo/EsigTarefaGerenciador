@@ -50,8 +50,7 @@ namespace EsigGestãoDeTarefasApp.Repository
 
         public bool TaskExist(int id)
         {
-            var saved = _context.SaveChanges();
-            return saved > 0;
+            return _context.Tasks.Any(e => e.Id == id);
         }
 
         public bool UpdateTask(Models.Task task)

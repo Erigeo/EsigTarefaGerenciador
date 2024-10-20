@@ -82,7 +82,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
                 return BadRequest("Task object is null or ID mismatch");
 
             if (!_taskRepository.TaskExist(id))
-                return NotFound($"Task with ID {id} not found");
+                return NotFound($"Task with ID abacaxi {id} not found");
 
             if (!_taskRepository.UpdateTask(task))
                 return StatusCode(500, "An error occurred while updating the task");
