@@ -4,6 +4,7 @@ using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using Task = EsigGestãoDeTarefasApp.Models.Task;
 
 namespace EsigGestãoDeTarefasApp.Controllers
@@ -25,6 +26,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // GET: api/tasks
         [HttpGet]
+        [SwaggerOperation(Summary = "Recebe todas as tasks")]
         public ActionResult<ICollection<Task>> GetAllTasks()
         {
             var tasks = _taskService.GetAllTasks();
@@ -36,6 +38,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // GET: api/tasks/{id}
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Recebe uma task pelo Id")]
         public ActionResult<Task> GetTaskById(int id)
         {
             var task = _taskRepository.GetTasksById(id);
@@ -47,6 +50,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // GET: api/tasks/title/{title}
         [HttpGet("title/{title}")]
+        [SwaggerOperation(Summary = "Recebe uma Task baseado no title")]
         public ActionResult<Task> GetTaskByTitle(string title)
         {
             var task = _taskRepository.GetTasksByTitle(title);
@@ -58,6 +62,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // POST: api/tasks
         [HttpPost]
+        [SwaggerOperation(Summary = "Cria uma nova Task")]
         public ActionResult CreateTask([FromBody] TaskDto task)
         {
             if (task == null)
@@ -76,6 +81,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // PUT: api/tasks/{id}
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Atualiza a Task")]
         public ActionResult UpdateTask(int id, [FromBody] TaskDto taskDto)
         {
             Console.WriteLine("nosso task dto:" + taskDto.ToString());
@@ -93,6 +99,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // DELETE: api/tasks/{id}
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Remove a Task pelo id")]
         public ActionResult DeleteTask(int id)
         {
             var task = _taskRepository.GetTasksById(id);

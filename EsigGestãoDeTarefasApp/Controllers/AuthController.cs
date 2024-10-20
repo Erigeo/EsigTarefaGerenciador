@@ -5,6 +5,7 @@ using EsigGestãoDeTarefasApp.Interfaces;
 using EsigGestãoDeTarefasApp.Models;
 using EsigGestãoDeTarefasApp.Services;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace EsigGestãoDeTarefasApp.Controllers
 {
@@ -30,6 +31,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         
         [HttpPost("login")]
+        [SwaggerOperation(Summary = "Realizar login de Employee")]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
             /// <summary>
@@ -53,6 +55,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
 
         [HttpPost("register")]
+        [SwaggerOperation(Summary = "Realizar cadastro de Employee, recebe JWT token")]
         public IActionResult Register([FromBody] RegisterDto registerDto)
 
 

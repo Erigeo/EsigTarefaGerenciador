@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using EsigGestãoDeTarefasApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace EsigGestãoDeTarefasApp.Controllers
 {
@@ -38,6 +39,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // GET: api/employees
         [HttpGet]
+        [SwaggerOperation(Summary = "Recebe todos os employees, JWT necessário")]
         public IActionResult GetEmployees()
         {
 
@@ -52,6 +54,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // GET: api/employees/{id}
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Recebe employee por id")]
         public IActionResult GetEmployeeById(int id)
         {
             var employee = _employeeRepository.GetEmployeeById(id);
@@ -61,19 +64,11 @@ namespace EsigGestãoDeTarefasApp.Controllers
             return Ok(employee);
         }
 
-        // GET: api/employees/name/{name}
-        [HttpGet("name/{name}")]
-        public IActionResult GetEmployeeByName(string name)
-        {
-            var employee = _employeeRepository.GetEmployeeByName(name);
-            if (employee == null)
-                return NotFound($"No employee with name '{name}' found");
-
-            return Ok(employee);
-        }
+       
 
         // POST: api/employees
         [HttpPost]
+        [SwaggerOperation(Summary = "Cadastra um novo employee")]
         public IActionResult CreateEmployee([FromBody] Employee employee)
         {
             if (employee == null)
@@ -87,6 +82,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // PUT: api/employees/{id}
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Realizar a alteração do Employee")]
         public IActionResult UpdateEmployee(int id, [FromBody] Employee employee)
         {
             if (employee == null || employee.Id != id)
@@ -103,6 +99,7 @@ namespace EsigGestãoDeTarefasApp.Controllers
 
         // DELETE: api/employees/{id}
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Remove o Employee pelo Id")]
         public IActionResult DeleteEmployee(int id)
         {
             var employee = _employeeRepository.GetEmployeeById(id);

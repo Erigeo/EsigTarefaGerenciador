@@ -38,7 +38,7 @@ builder.Services.AddAuthentication(options =>
     // Verifica se as configurações estão nulas ou vazias
     if (string.IsNullOrEmpty(key) || string.IsNullOrEmpty(issuer) || string.IsNullOrEmpty(audience))
     {
-        // Apenas retorna, não configura a autenticação JWT
+        
         return;
     }
 
@@ -84,7 +84,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "EsigTaskApi", Version = "v1" });
 
     // Adiciona a configuração do token JWT
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -94,7 +94,7 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey
     });
-
+    c.EnableAnnotations(); // Habilita o suporte a anotações
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
