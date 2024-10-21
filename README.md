@@ -73,7 +73,16 @@ A API estará disponível no endereço: `https://localhost:7281`.
 
 7. Ao dar run na Api, uma página referente ao Swagger será aberta com todos os endpoints relacionados a Api.
 
-8. Para continuar com as etapas acessar: https://github.com/Erigeo/EsigTasksFront 
+8. Para continuar com as etapas acessar: https://github.com/Erigeo/EsigTasksFront
+
+9. Qualquer problema relacionado ao database update exclua a pasta Migrations que é gerada automaticamente e utilize o comando seguido do passo 5:
+     ```bash
+    dotnet ef migrations add InitialState
+    ```
+10. Caso queira aproveitar a seed já criada para povoar seu DB
+     ```bash
+    dotnet ef run seeddata
+    ```
 
 ## Autenticação
 Todos os endpoints que não estão relacionados a Authentication é necessário o uso do JWT token obtido após o login para realizar as requisições.
