@@ -4,7 +4,23 @@
 ## Descrição
 Esta API foi desenvolvida com base no que foi proposto na tarefa de estágio fullstack da Esig Group. Ela fornece endpoints para autentição de usuário, register e para realização de CRUD para tasks e usuários. 
 
-## Tecnologias Utilizadas
+
+## Itens propostos implementados
+- a) Criar uma aplicação Front-end utilizando Vue.js na versão mais recente.
+- b) Para o backend, desenvolver uma API Rest utilizando C# e ASP.NET Web
+API, com persistência em banco de dados relacional de sua preferência.
+- c) Criar um controle de autenticação por usuário com login e senha e os
+endpoints devem autenticar através de token JWT.
+- e) Utilizar banco de dados Oracle.
+- f) Utilizar testes de unidades(foi parcialmente implementado).
+- g) Documentar a API usando o Swagger (https://swagger.io).
+- i) BONUS: Utilizado Tailwind no front-end, implementação de diferenciação entre users.
+
+## Itens propostos não implementados
+- d)
+- h)
+
+## Tecnologias Utilizadas neste repositório em específico.
 - **ASP.NET Web API**
 - **.NET Core** (versão 7)
 - **Entity Framework Core** (se estiver usando para persistência de dados)
